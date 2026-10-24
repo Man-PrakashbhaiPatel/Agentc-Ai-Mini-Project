@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Pantry Chef</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="hero">
+        <h1>Smart Pantry Chef 🧑‍🍳</h1>
+        <p>Tell us what's in your pantry, and our AI Agent will cook up a plan.</p>
+    </header>
+
+    <main class="container">
+        <section class="input-card">
+            <div class="form-group">
+                <label>Available Ingredients (Type & Press Enter)</label>
+                <div class="tag-input-container">
+                    <div id="tags-wrapper"></div>
+                    <input type="text" id="ingredient-input" placeholder="e.g., Potato, Egg, Bread">
+                </div>
+                <small>Add 3-4 main ingredients.</small>
+            </div>
+
+            <div class="controls-row">
+                <div class="form-group">
+                    <label>Max Time</label>
+                    <select id="time-select">
+                        <option value="10">10 Minutes</option>
+                        <option value="15">15 Minutes</option>
+                        <option value="30">30 Minutes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preference</label>
+                    <select id="pref-select">
+                        <option value="any">Any</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="non-vegetarian">Non-Vegetarian</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Cuisine (Optional)</label>
+                    <input type="text" id="cuisine-input" placeholder="e.g., Indian, Italian">
+                </div>
+            </div>
+
+            <button id="submit-btn" class="primary-btn">Find My Recipe</button>
+        </section>
+
+        <!-- Loading State -->
+        <section id="loading-indicator" class="hidden">
+            <div class="spinner"></div>
+            <p id="loading-text">Agent analyzing ingredients...</p>
+        </section>
+
+        <!-- Results Card -->
+        <section id="result-card" class="hidden card">
+            <div class="recipe-header">
+                <h2 id="r-title">Dish Name</h2>
+                <div class="badges">
+                    <span id="r-time" class="badge">⏱️ 15 min</span>
+                    <span id="r-diff" class="badge">📊 Easy</span>
+                    <span id="r-serve" class="badge">🍽️ 2 Servings</span>
+                </div>
+            </div>
+            
+            <p id="r-summary" class="summary-text"></p>
+
+            <div class="recipe-grid">
+                <div class="ingredients-section">
+                    <h3>Ingredients Used</h3>
+                    <ul id="r-available" class="ing-list success"></ul>
+                    
+                    <h3>Pantry Staples</h3>
+                    <ul id="r-staples" class="ing-list warning"></ul>
+
+                    <h3>Missing Essentials</h3>
+                    <ul id="r-missing" class="ing-list danger"></ul>
+                </div>
+                
+                <div class="instructions-section">
+                    <h3>Instructions</h3>
+                    <ol id="r-instructions"></ol>
+                </div>
+            </div>
+            
+            <div class="validation-footer">
+                <small id="r-validation">Agent Validation Passed (Attempts: 1)</small>
+            </div>
+        </section>
+
+        <!-- Error Card -->
+        <section id="error-card" class="hidden card error-card">
+            <h2>Couldn't Find a Recipe 😕</h2>
+            <p id="error-message"></p>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
